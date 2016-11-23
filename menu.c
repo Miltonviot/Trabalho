@@ -10,7 +10,7 @@
 
 int main (){
 
-
+	Clientes cadastro [200];
 	int condicional=8,Indice=0;
 
 		while (condicional>0){
@@ -31,8 +31,9 @@ int main (){
 					
 					case 1:
 					
-						CadastrodeNovosClientes();
-
+						CadastrodeNovosClientes(cadastro, Indice);
+						imprime_clientes(cadastro, Indice);
+						Indice++;
 					break;
 
 					case 2:
@@ -62,7 +63,8 @@ int main (){
 					default :
 					printf("Digite um numero valido\n");
 					}
-				}Indice++;
+				}
+				
 		}
 	return 0;
 };
