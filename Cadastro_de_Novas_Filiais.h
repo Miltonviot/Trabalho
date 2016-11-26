@@ -3,9 +3,7 @@
 
 typedef struct Filiais {
 		char cidadeFilial[100];
-		int codigoFilial;
-		
-		
+		int codigoFilial;		
 	}Filiais;
 
 	int Cadastro_de_Novas_Filiais();	
@@ -20,47 +18,46 @@ typedef struct Filiais {
 #include "CadastrodeNovosClientes.h"
 #include "Cadastro_de_Novas_Filiais.h"
 
-int Cadastro_de_Novas_Filiais (){
+int Cadastro_de_Novas_Filiais (Filiais * cadastro, int Indice){
+	int condicional=1,i;
+	Filiais novo;		
 
-	FILE *Cadastro_de_Novas_Filiais;
-	Cadastro_de_Novas_Filiais = fopen("Cadastro_de_Novas_Filiais.txt","w");
-	if (Cadastro_de_Novas_Filiais == NULL){
-		puts("Erro na Abertura do Arquivo \n");
-
-		exit(1);
-	}
-	Filiais cadastro[200];
-
-	int condicional=1,Indice=0;
-		
-		while (condicional>0){
+	while (condicional>0){
+		puts("=============================================================================");
+		puts("=============================================================================");
+		puts("DESEJA REALIZAR CADASTRO DE NOVA FILIAL ? {1} PARA SIM! {0} PARA NAO!");
+		scanf("%d",&condicional);
+		puts("=============================================================================");
+		puts("=============================================================================");
+		getchar();
+		if (condicional>0){
 
 			puts("=============================================================================");
 			puts("=============================================================================");
-			puts("DESEJA REALIZAR CADASTRO DE NOVA FILIAL ? {1} PARA SIM! {0} PARA NAO!");
-			scanf("%d",&condicional);
+			puts ("Digite o código da filial");
+			scanf("%d",&novo.codigoFilial);
 			puts("=============================================================================");
 			puts("=============================================================================");
 			getchar();
-			if (condicional>0){
-
-					puts("=============================================================================");
-					puts("=============================================================================");
-					puts ("Digite o código da filial");
-					scanf("%d",&cadastro[Indice].codigoFilial);
-					puts("=============================================================================");
-					puts("=============================================================================");
-					getchar();
-					puts ("Digite a cidade da filial");
-					fgets(cadastro[Indice].cidadeFilial,101,stdin);
-					puts("=============================================================================");
-					puts("=============================================================================");
-					
-					fprintf(Cadastro_de_Novas_Filiais, "Código da Filial |%d| Cidade da filial |%s\n",cadastro[Indice].codigoFilial,cadastro[Indice].cidadeFilial );
-					
+			puts ("Digite a cidade da filial");
+			fgets(novo.cidadeFilial,101,stdin);
+			puts("=============================================================================");
+			puts("=============================================================================");					
+			for(i = 0; i <= Indice; i++){
+				if(novo.codigoFilial == cadastro[i].codigoFilial){
+					condicional = 0;
+					break;
+				}
 			}
-		}Indice++;
+			if(condicional != 0){
+				Indice++;
+				cadastro[Indice].codigoFilial = novo.codigoFilial;
+				strcpy(cadastro[Indice].cidadeFilial , novo.cidadeFilial);
+			}
 
-return 0;
+		}
+		getchar();
+	}
+	return Indice;	
 }
 #endif 

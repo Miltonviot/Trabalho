@@ -4,11 +4,8 @@
 
 typedef struct Clientes {
 		char primeiroNome[100],UltimoNome[100],endereco[100],senha[7];
-
 		int CPF[11];
-
-		int identificador[5];
-		
+		int identificador[5];		
 	}Clientes;
 
 
@@ -34,83 +31,91 @@ int CadastrodeNovosClientes(Clientes *cadastro, int Indice ) {
 	int aux=0;
 	char *cpfc = (char*)malloc(sizeof(11));
 	int condicional=1;
-	getchar();
 
-	puts("=============================================================================");
-	puts("=============================================================================");
-	puts ("Digite o Primeiro nome do clinte ");
-	fgets(novo.primeiroNome,101,stdin);
-	puts("=============================================================================");
-	puts("=============================================================================");
-	
-	int i=0;
-	puts ("Digite o CPF  do clinte ");
-	fgets(cpfc,101,stdin);	
-	converte_char_to_int(cpfc,novo.CPF);
-	if(verificar_cpf(novo.CPF)){
-		printf("valido\n");		
-		aux = 1;
-	}else{
-		aux = 0;
-	}
-	
-	puts("=============================================================================");
-	puts("=============================================================================");
+	while (condicional>0){
+		puts("=============================================================================");
+		puts("=============================================================================");
+		puts("DESEJA REALIZAR CADASTRO DE NOVO CLIENTE ? {1} PARA SIM! {0} PARA NAO!");
+		scanf("%d",&condicional);
+		puts("=============================================================================");
+		puts("=============================================================================");
+		getchar();
 
-	puts ("Digite o Ultimo nome do clinte ");
-	fgets(novo.UltimoNome,101,stdin);
-	
-	puts("=============================================================================");
-	puts("=============================================================================");
-
-	puts ("Digite A Senha do clinte (6 digitos) ");
-	fgets(novo.senha,7,stdin);	
-	getchar();
-	
-	puts("=============================================================================");
-	puts("=============================================================================");
-	getchar();
-	puts ("Digite o Endereço do clinte ");
-	fgets(novo.endereco,101,stdin);		
+		if (condicional == 1){
+			puts("=============================================================================");
+			puts("=============================================================================");
+			puts ("Digite o Primeiro nome do clinte ");
+			fgets(novo.primeiroNome,101,stdin);
+			puts("=============================================================================");
+			puts("=============================================================================");
 			
-	
-	puts("=============================================================================");
-	puts("=============================================================================");
+			puts ("Digite o CPF  do clinte ");
+			fgets(cpfc,101,stdin);	
+			converte_char_to_int(cpfc,novo.CPF);
+			if(verificar_cpf(novo.CPF))
+				aux = 1;
+			else
+				aux = 0;
 
-	puts("Digite o numero do cadastro ( Separado por espaço )");
-	scanf("%d %d %d %d",&novo.identificador[0],&novo.identificador[1],&novo.identificador[2],&novo.identificador[3]);
-	
-	puts("=============================================================================");
-	puts("=============================================================================");
-	
-	if(aux){
-		int i,x,y=1;
-		for(i=0; i<Indice;i++){
-			if(cadastro[i].CPF[0] == novo.CPF[0]){
-				y=0;
-				for(x=0;x<11;x++){
-					if(cadastro[i].CPF[x] != novo.CPF[x]){
-						y=1;
-						break;
+			puts("=============================================================================");
+			puts("=============================================================================");
+
+			puts ("Digite o Ultimo nome do clinte ");
+			fgets(novo.UltimoNome,101,stdin);
+			
+			puts("=============================================================================");
+			puts("=============================================================================");
+
+			puts ("Digite A Senha do clinte (6 digitos) ");
+			fgets(novo.senha,7,stdin);	
+			getchar();
+			
+			puts("=============================================================================");
+			puts("=============================================================================");
+			getchar();
+			puts ("Digite o Endereço do clinte ");
+			fgets(novo.endereco,101,stdin);		
+					
+			
+			puts("=============================================================================");
+			puts("=============================================================================");
+
+			puts("Digite o numero do cadastro ( Separado por espaço )");
+			scanf("%d %d %d %d",&novo.identificador[0],&novo.identificador[1],&novo.identificador[2],&novo.identificador[3]);
+			
+			puts("=============================================================================");
+			puts("=============================================================================");
+			
+			if(aux){
+				int i,x,y=1;
+				for(i=0; i<=Indice;i++){
+					if(cadastro[i].CPF[0] == novo.CPF[0]){
+						y=0;
+						for(x=0;x<11;x++){
+							if(cadastro[i].CPF[x] != novo.CPF[x]){
+								y=1;
+								break;
+							}
+						}
+						if(y==1) break;
 					}
 				}
-				if(y==1) break;
+				if(y==1){
+					Indice++;
+					strcpy(cadastro[Indice].primeiroNome, novo.primeiroNome);
+					strcpy(cadastro[Indice].UltimoNome, novo.UltimoNome);
+					strcpy(cadastro[Indice].endereco, novo.endereco);
+					strcpy(cadastro[Indice].senha, novo.senha);
+					
+					for(i=0;i<11;i++)
+						cadastro[Indice].CPF[i]=novo.CPF[i];
+					for(i=0;i<4;i++)
+						cadastro[Indice].identificador[i]=novo.identificador[i];
+				}
 			}
 		}
-		if(y==1){
-			strcpy(cadastro[Indice].primeiroNome, novo.primeiroNome);
-			strcpy(cadastro[Indice].UltimoNome, novo.UltimoNome);
-			strcpy(cadastro[Indice].endereco, novo.endereco);
-			strcpy(cadastro[Indice].senha, novo.senha);
-			
-			for(i=0;i<11;i++)
-				cadastro[Indice].CPF[i]=novo.CPF[i];
-			for(i=0;i<4;i++)
-				cadastro[Indice].identificador[i]=novo.identificador[i];
-			return Indice;
-		}
 	}
-		return Indice-1;
+		return Indice;
 }
 
 void imprime_clientes(Clientes *cadastro, int indice){
@@ -184,40 +189,40 @@ void converte_char_to_int(char *cpfc, int * cpf){
 
 int verificar_cpf(int *cpf) { 	
 	int status, dv_informado,soma,posicao,digito[11],dv,i;
-		for (i = 0; i <= 8; i++) { 
-			digito[i]=cpf[i];
-		}
+	for (i = 0; i <= 8; i++) { 
+		digito[i]=cpf[i];
+	}
 
-		dv_informado = cpf[9]*10+cpf[10];
-		posicao = 10; 
-		soma = 0; 
-		for (i = 0; i <= 8; i++) { 
-			soma = soma + digito[i] * posicao; 
-			posicao = posicao - 1; 
-		} 
-		digito[9] = soma % 11; 
-		if (digito[9] < 2) { 
-			digito[9] = 0; 
-		}else{
-			digito[9] = 11 - digito[9]; 
-		}
-		posicao = 11; 
-		soma = 0; 
-		for (i = 0; i <= 9; i++) { 
-			soma = soma + digito[i] * posicao; posicao = posicao - 1; 
-		} 
-		digito[10] = soma % 11; 
-		if (digito[10] < 2) { 
-			digito[10] = 0; 
-		} else {
-			digito[10] = 11 - digito[10]; 
-		} 
-		dv = digito[9] * 10 + digito[10];
-		if (dv != dv_informado) {
-			status = 0;
-		}else 
-			status = 1; 
-	
+	dv_informado = cpf[9]*10+cpf[10];
+	posicao = 10; 
+	soma = 0; 
+	for (i = 0; i <= 8; i++) { 
+		soma = soma + digito[i] * posicao; 
+		posicao = posicao - 1; 
+	} 
+	digito[9] = soma % 11; 
+	if (digito[9] < 2) { 
+		digito[9] = 0; 
+	}else{
+		digito[9] = 11 - digito[9]; 
+	}
+	posicao = 11; 
+	soma = 0; 
+	for (i = 0; i <= 9; i++) { 
+		soma = soma + digito[i] * posicao; posicao = posicao - 1; 
+	} 
+	digito[10] = soma % 11; 
+	if (digito[10] < 2) { 
+		digito[10] = 0; 
+	} else {
+		digito[10] = 11 - digito[10]; 
+	} 
+	dv = digito[9] * 10 + digito[10];
+	if (dv != dv_informado) {
+		status = 0;
+	}else 
+		status = 1; 
+
 	return status; 
 }
 	

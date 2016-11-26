@@ -10,8 +10,19 @@
 
 int main (){
 
-	Clientes cadastro [200];
-	int condicional=8,Indice=0;
+	Clientes cadastro_clientes [200];
+	int Indice_clientes=-1;
+
+	Filiais cadastro_filiais[200];
+	int Indice_filiais=-1;
+
+	Veiculos cadastro_veiculos[200];
+	int Indice_veiculos=-1;
+
+	Locacao cadastro_locacao[200];
+	int Indice_locacao=-1;
+
+	int condicional=8;
 
 		while (condicional>0){
 			puts("=============================================================================");
@@ -30,27 +41,24 @@ int main (){
 					switch (condicional){
 					
 					case 1:
-					
-						CadastrodeNovosClientes(cadastro, Indice);
-						imprime_clientes(cadastro, Indice);
-						Indice++;
+						Indice_clientes = CadastrodeNovosClientes(cadastro_clientes, Indice_clientes);
+						
 					break;
 
 					case 2:
+						Indice_veiculos = Cadastro_de_Novos_Veiculos(cadastro_veiculos, Indice_veiculos);
 
-						Cadastro_de_Novos_Veiculos();
 
 					break;
 
 					case 3:
+						Indice_filiais = Cadastro_de_Novas_Filiais (cadastro_filiais, Indice_filiais);
 
-						Cadastro_de_Novas_Filiais ();
 
 					break;
 
 					case 4:
-
-						Locacao_de_Carros();
+						Indice_locacao = Locacao_de_Carros(cadastro_locacao, Indice_locacao, cadastro_clientes, cadastro_filiais, cadastro_veiculos);
 
 					break;
 
@@ -64,7 +72,7 @@ int main (){
 					printf("Digite um numero valido\n");
 					}
 				}
-				
+
 		}
 	return 0;
 };

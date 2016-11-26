@@ -18,68 +18,71 @@ typedef struct Veiculos {
 #include "Cadastro_de_Novos_Veiculos.h"
 #include "CadastrodeNovosClientes.h"
 #include "Cadastro_de_Novas_Filiais.h"
-int Cadastro_de_Novos_Veiculos (){
+int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
+	Veiculos novo;
 
-	FILE *Cadastro_de_Novos_Veiculos;
-	Cadastro_de_Novos_Veiculos = fopen("Cadastro_de_Novos_Veiculos.txt","w");
-	if (Cadastro_de_Novos_Veiculos == NULL){
-		puts("Erro na Abertura do Arquivo \n");
-
-		exit(1);
-	}
-	Veiculos cadastro[200];
-
-	int condicional=1,Indice=0;
-		
-		while (condicional>0){
+	int condicional=1, i=0;
+	
+	while (condicional>0){
+		puts("=============================================================================");
+		puts("=============================================================================");
+		puts("DESEJA REALIZAR CADASTRO DE NOVO VEÍCULO ? {1} PARA SIM! {0} PARA NAO!");
+		scanf("%d",&condicional);
+		puts("=============================================================================");
+		puts("=============================================================================");
+		getchar();
+		if (condicional >0){
+			puts ("Digite A Placa do Veículo");
+			fgets(novo.placaDoVeiculo,101,stdin);
 			puts("=============================================================================");
 			puts("=============================================================================");
-			puts("DESEJA REALIZAR CADASTRO DE NOVO VEÍCULO ? {1} PARA SIM! {0} PARA NAO!");
-			scanf("%d",&condicional);
+			
+			puts ("Digite O modelo do Veículo");
+			fgets(novo.modeloDoCarro,101,stdin);
 			puts("=============================================================================");
 			puts("=============================================================================");
-			getchar();
-		
-				if (condicional >0){
-					puts ("Digite A Placa do Veículo");
-					fgets(cadastro[Indice].placaDoVeiculo,101,stdin);
-					puts("=============================================================================");
-					puts("=============================================================================");
-					
-					puts ("Digite O modelo do Veículo");
-					fgets(cadastro[Indice].modeloDoCarro,101,stdin);
-					puts("=============================================================================");
-					puts("=============================================================================");
 
+			puts ("Digite O ano de fabricação do Veículo");
+			fgets(novo.anoDeFabricacao,101,stdin);
+			puts("=============================================================================");
+			puts("=============================================================================");				
 
-					puts ("Digite O ano de fabricação do Veículo");
-					fgets(cadastro[Indice].anoDeFabricacao,101,stdin);
-					puts("=============================================================================");
-					puts("=============================================================================");
-						
+			puts ("Digite o estado do carro");
+			fgets(novo.estadoDoCarro,101,stdin);
+			puts("=============================================================================");
+			puts("=============================================================================");	
 
-					puts ("Digite o estado do carro");
-					fgets(cadastro[Indice].estadoDoCarro,101,stdin);
-					puts("=============================================================================");
-					puts("=============================================================================");	
+			puts ("Digite a quilometragem do carro (só Número)");
+			scanf("%lu",&novo.KM);
+			puts("=============================================================================");
+			puts("=============================================================================");	
 
-					puts ("Digite a quilometragem do carro (só Número)");
-					scanf("%lu",&cadastro[Indice].KM);
-					puts("=============================================================================");
-					puts("=============================================================================");	
+			printf("%s\n",novo.placaDoVeiculo );
+			printf("%s\n",novo.modeloDoCarro );
+			printf("%s\n",novo.anoDeFabricacao );
+			printf("%s\n",novo.estadoDoCarro );
+			printf("%.2lu\n",novo.KM );
 
-
-
-					printf("%s\n",cadastro[Indice].placaDoVeiculo );
-					printf("%s\n",cadastro[Indice].modeloDoCarro );
-					printf("%s\n",cadastro[Indice].anoDeFabricacao );
-					printf("%s\n",cadastro[Indice].estadoDoCarro );
-					printf("%.2lu\n",cadastro[Indice].KM );
-					Indice++;
-				}getchar();
+			//percorrer o vetor em busca da placa
+			for(i = 0; i <= Indice; i++){
+				if(strcmp(novo.placaDoVeiculo,cadastro_veiculos[i].placaDoVeiculo)==0){
+					printf("placa já está cadastrada");
+					condicional = 0;
+					break;
+				}
+			}
+			if(condicional != 0 ){
+				Indice++;
+				strcpy(cadastro_veiculos[Indice].placaDoVeiculo , novo.placaDoVeiculo );
+				strcpy(cadastro_veiculos[Indice].modeloDoCarro , novo.modeloDoCarro );
+				strcpy(cadastro_veiculos[Indice].anoDeFabricacao , novo.anoDeFabricacao );
+				strcpy(cadastro_veiculos[Indice].estadoDoCarro , novo.estadoDoCarro );
+				cadastro_veiculos[Indice].KM = novo.KM;						
+			}
+			condicional = 0;
 		}
-fclose(Cadastro_de_Novos_Veiculos);
-return 0;
-
+		getchar();
+	}
+	return Indice;
 }
 #endif 
