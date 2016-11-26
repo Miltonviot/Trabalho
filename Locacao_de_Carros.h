@@ -52,7 +52,7 @@ int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filia
 			fgets(novo.dataLocacao,17,stdin);
 			puts("=============================================================================");
 			puts("=============================================================================");
-			puts("Digite o numero do cadastro ( Separado por espaço )");
+			puts("Digite o numero do locacao ( Separado por espaço )");
 			scanf("%d %d %d %d",&novo.codigo_cliente[0],&novo.codigo_cliente[1],&novo.codigo_cliente[2],&novo.codigo_cliente[3]);
 			puts("=============================================================================");
 			puts("=============================================================================");
@@ -73,8 +73,10 @@ int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filia
 			//verificar se existe veículo
 			for(i = 0; i <= Indice; i++){
 				if(strcmp(novo.placaDoVeiculo, veiculos[i].placaDoVeiculo)==0){
-					condicional++;
-					emLocacao = i;
+					if(veiculos[i].emLocacao == 0){
+						condicional++;
+						emLocacao = i;
+					}
 				}
 			}
 
@@ -86,6 +88,15 @@ int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filia
 					}
 				}
 			}
+			
+			//verificar se existe veículo
+			for(i = 0; i <= Indice; i++){
+				if(strcmp(novo.placaDoVeiculo, locacao[i].placaDoVeiculo)==0){
+					condicional++;
+					emLocacao = i;
+				}
+			}
+
 			if(condicional == 3){//existe filial, veículo e cliente.
 				Indice++;
 				locacao[Indice].codigoFilial  = novo.codigoFilial;
@@ -101,5 +112,76 @@ int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filia
 		}
 	}
 	return Indice;
+}
+
+int encerrar_Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filiais * filiais, Veiculos * veiculos){
+
+	Locacao novo;	
+	int condicional=1, i, emLocacao;
+		
+	while (condicional>0){
+		puts("=============================================================================");
+		puts("=============================================================================");
+		puts("DESEJA REALIZAR NOVA LOCAÇÃO ? {1} PARA SIM! {0} PARA NAO!");
+		scanf("%d",&condicional);
+		puts("=============================================================================");
+		puts("=============================================================================");
+		getchar();
+
+		if (condicional>0){
+			puts("=============================================================================");
+			puts("=============================================================================");
+			puts("Digite a KM Final ");
+			scanf("%lu",&novo.KM);
+			puts("=============================================================================");
+			puts("=============================================================================");
+			puts("Digite a data de encerramento ");
+			fgets(novo.dataLocacao,17,stdin);
+			puts("=============================================================================");
+			puts("=============================================================================");
+			puts("Digite o numero do locacao ( Separado por espaço )");
+			scanf("%d %d %d %d",&novo.codigo_cliente[0],&novo.codigo_cliente[1],&novo.codigo_cliente[2],&novo.codigo_cliente[3]);
+			puts("=============================================================================");
+			puts("=============================================================================");
+			
+			
+			condicional = 0;
+			
+			//verificar se existe locação
+			for(i = 0; i <= Indice; i++){
+				if(strcmp(novo.placaDoVeiculo, locacao[i].placaDoVeiculo)==0){
+					condicional++;
+					emLocacao = i;
+				}
+			}
+
+			if(condicional == 3){//existe filial, veículo e cliente.
+				Indice++;
+				locacao[Indice].codigoFilial  = novo.codigoFilial;
+				strcpy(locacao[Indice].placaDoVeiculo, novo.placaDoVeiculo);
+				for(i = 0; i < 4; i++)
+					locacao[Indice].codigo_cliente[i] = novo.codigo_cliente[i];
+				locacao[Indice].KM = novo.KM;
+				strcpy(locacao[Indice].dataLocacao, novo.dataLocacao);
+				locacao[Indice].custoInicial = novo.custoInicial;
+				locacao[Indice].custoKM = novo.custoKM;
+				veiculos[emLocacao].emLocacao = 1;
+			}
+		}
+	}
+	return Indice;
+}
+
+
+void listarVeiculos(Locacao * locacao, int Indice){
+	int i = Indice;
+	while(i>=0){
+		printf("\tCliente número:%d\n",Indice );
+		printf("\tPrimeiro Nome:%s\n",locacao[Indice].placaDoVeiculo);
+		printf("\tUltimo Nome:%d\n",locacao[Indice].codigo_cliente[0]);
+		printf("\tEndereço:%d\n",locacao[Indice].codigoFilial);
+		printf("\tSenha:%s\n",locacao[Indice].dataLocacao);
+		i--;
+	}
 }
 #endif 

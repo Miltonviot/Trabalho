@@ -23,45 +23,58 @@ int MovimentarCarros();
 #include "CadastrodeNovosClientes.h"
 #include "Cadastro_de_Novas_Filiais.h"
 
-int MovimentarCarros (){
+int MovimentarCarros (Movimentar *cadastro, int Indice, Filiais * filiais, Veiculos * veiculos){
 
-	FILE *MovimentarCarros;
-	MovimentarCarros = fopen("MovimentarCarros.txt","w");
-	if (MovimentarCarros == NULL){
-		puts("Erro na Abertura do Arquivo \n");
+	Movimentar novo;
+	int emLocacao;
 
-		exit(1);
-	}
+	int condicional=1,i;
+	
+	while (condicional>0){
+		puts("=============================================================================");
+		puts("=============================================================================");
+		puts("DESEJA REALIZAR TRANSFERENCIA ENTRE FILIAIS? {1} PARA SIM! {0} PARA NAO!");
+		scanf("%d",&condicional);
+		puts("=============================================================================");
+		puts("=============================================================================");
+		getchar();
 
-	Movimentar cadastro[200];
+		if (condicional>0){
 
-	int condicional=1,Indice=0;
-		
-		while (condicional>0){
+			puts("=============================================================================");
+			puts("=============================================================================");		
+			puts("Digite a placa do carro escolido");
+			fgets(cadastro[Indice].placaDoVeiculo,101,stdin);
 			puts("=============================================================================");
 			puts("=============================================================================");
-			puts("DESEJA REALIZAR TRANSFERENCIA ENTRE FILIAIS? {1} PARA SIM! {0} PARA NAO!");
-			scanf("%d",&condicional);
+			puts ("Digite o código da filial");
+			scanf("%d",&cadastro[Indice].codigoFilial);
 			puts("=============================================================================");
 			puts("=============================================================================");
-			getchar();
 
-
-				if (condicional>0){
-
-					puts("=============================================================================");
-					puts("=============================================================================");		
-					puts("Digite a placa do carro escolido");
-					fgets(cadastro[Indice].placaDoVeiculo,101,stdin);
-					puts("=============================================================================");
-					puts("=============================================================================");
-					puts ("Digite o código da filial");
-					scanf("%d",&cadastro[Indice].codigoFilial);
-					puts("=============================================================================");
-					puts("=============================================================================");
+			condicional = 0;
+			//verificar se existe filial
+			for(i = 0; i <= Indice; i++){
+				if(novo.codigoFilial == filiais[i].codigoFilial){
+					condicional++;
 				}
-			}Indice++;
-return 0;
+			}
+
+			//verificar se existe veículo
+			for(i = 0; i <= Indice; i++){
+				if(strcmp(novo.placaDoVeiculo, veiculos[i].placaDoVeiculo)==0){
+					condicional++;
+					emLocacao = i;
+				}
+			}
+			if(condicional == 2){//existe filial e veículo
+				Indice++;
+				cadastro[Indice].codigoFilial  = novo.codigoFilial;
+				strcpy(cadastro[Indice].placaDoVeiculo, novo.placaDoVeiculo);
+			}
+		}
+	}
+return Indice;
 }
 
 

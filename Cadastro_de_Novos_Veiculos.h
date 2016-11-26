@@ -5,6 +5,7 @@ typedef struct Veiculos {
 		char placaDoVeiculo[100],modeloDoCarro[100],anoDeFabricacao[100],estadoDoCarro[100];
 		unsigned long  int KM;
 		int emLocacao;
+		int codigoFilial;
 		
 	}Veiculos;
 
@@ -63,6 +64,7 @@ int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
 			printf("%s\n",novo.estadoDoCarro );
 			printf("%.2lu\n",novo.KM );
 
+		
 			//percorrer o vetor em busca da placa
 			for(i = 0; i <= Indice; i++){
 				if(strcmp(novo.placaDoVeiculo,cadastro_veiculos[i].placaDoVeiculo)==0){
@@ -78,6 +80,7 @@ int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
 				strcpy(cadastro_veiculos[Indice].anoDeFabricacao , novo.anoDeFabricacao );
 				strcpy(cadastro_veiculos[Indice].estadoDoCarro , novo.estadoDoCarro );
 				cadastro_veiculos[Indice].KM = novo.KM;						
+				//cadastro_veiculos[Indice].codigoFilial = novo.codigoFilial;						
 			}
 			condicional = 0;
 		}

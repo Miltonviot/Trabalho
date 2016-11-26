@@ -118,7 +118,7 @@ int CadastrodeNovosClientes(Clientes *cadastro, int Indice ) {
 		return Indice;
 }
 
-void imprime_clientes(Clientes *cadastro, int indice){
+void listarClientes(Clientes *cadastro, int indice){
 	int i;
 	while(indice>=0){
 		printf("\tCliente número:%d\n",indice );

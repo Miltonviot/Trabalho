@@ -22,6 +22,9 @@ int main (){
 	Locacao cadastro_locacao[200];
 	int Indice_locacao=-1;
 
+	Movimentar cadastro_movimento[200];
+	int Indice_movimento=-1;
+
 	int condicional=8;
 
 		while (condicional>0){
@@ -32,7 +35,8 @@ int main (){
 			puts("=Digite {2} para Cadastro de Novos Veiculos                                 =");
 			puts("=Digite {3} para Cadastro de Novas Filiais                                  =");
 			puts("=Digite {4} para Realizar uma locação                                       =");
-			puts("=Digite {5} para Realizar uma transferencia entre Filiais                   =");
+			puts("=Digite {5} para Encerrar uma locação                                       =");
+			puts("=Digite {6} para Realizar uma transferencia entre Filiais                   =");
 			puts("=============================================================================");
 			puts("=============================================================================");
 
@@ -42,30 +46,34 @@ int main (){
 					
 					case 1:
 						Indice_clientes = CadastrodeNovosClientes(cadastro_clientes, Indice_clientes);
-						
+						listarClientes(cadastro_clientes, Indice_clientes);
 					break;
 
 					case 2:
 						Indice_veiculos = Cadastro_de_Novos_Veiculos(cadastro_veiculos, Indice_veiculos);
-
+						//listarVeiculos(cadastro_veiculos, Indice_veiculos);
 
 					break;
 
 					case 3:
-						Indice_filiais = Cadastro_de_Novas_Filiais (cadastro_filiais, Indice_filiais);
-
+						Indice_filiais = Cadastro_de_Novas_Filiais(cadastro_filiais, Indice_filiais);
+						////listarFiliais(cadastro_filiais, Indice_filiais);
 
 					break;
 
 					case 4:
 						Indice_locacao = Locacao_de_Carros(cadastro_locacao, Indice_locacao, cadastro_clientes, cadastro_filiais, cadastro_veiculos);
-
+						//listarLocacoes(cadastro_locacao, Indice_locacao);
 					break;
 
 					case 5:
+						Indice_locacao = encerrar_Locacao_de_Carros(cadastro_locacao, Indice_locacao, cadastro_clientes, cadastro_filiais, cadastro_veiculos);
+						//listarLocacoes(cadastro_locacao, Indice_locacao);
+					break;
 
-						MovimentarCarros();
-
+					case 6:
+						Indice_movimento = MovimentarCarros(cadastro_movimento, Indice_movimento,cadastro_filiais,cadastro_veiculos);
+						//listarMovimentos(cadastro_movimento, Indice_movimento);
 					break;
 					
 					default :
