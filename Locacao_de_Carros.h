@@ -18,7 +18,7 @@ int Locacao_de_Carros();
 #include "Cadastro_de_Novos_Veiculos.h"
 #include "CadastrodeNovosClientes.h"
 #include "Cadastro_de_Novas_Filiais.h"
-int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filiais * filiais, Veiculos * veiculos){
+int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes,int Indice_clientes, Filiais * filiais, int Indice_filiais, Veiculos * veiculos, int Indice_veiculos){
 
 	Locacao novo;	
 	int condicional=1, i,x, emLocacao;
@@ -64,40 +64,40 @@ int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filia
 
 			condicional = 0;
 			//verificar se existe filial
-			for(i = 0; i <= Indice; i++){
+			for(i = 0; i <= Indice_filiais; i++){
+				printf("código = %d\n", filiais[i].codigoFilial);
 				if(novo.codigoFilial == filiais[i].codigoFilial){
 					condicional++;
+					break;
 				}
 			}
 
-			//verificar se existe veículo
-			for(i = 0; i <= Indice; i++){
+			//verificar se existe veículo e se ele já está locado
+			for(i = 0; i <= Indice_veiculos; i++){
+				printf("Placa = %s\n", veiculos[i].placaDoVeiculo);
 				if(strcmp(novo.placaDoVeiculo, veiculos[i].placaDoVeiculo)==0){
 					if(veiculos[i].emLocacao == 0){
 						condicional++;
 						emLocacao = i;
+						break;
 					}
 				}
 			}
 
 			//verificar se existe cliente
-			for(int x = 0; x <= Indice; x++){
+			for(int x = 0; x <= Indice_clientes; x++){
+
 				for(i = 0; i < 4; i++){
+					printf("Identificador = %d", clientes[x].identificador[i]);
 					if(novo.codigo_cliente[i] == clientes[x].identificador[i]){
 						condicional++;
 					}
 				}
 			}
 			
-			//verificar se existe veículo
-			for(i = 0; i <= Indice; i++){
-				if(strcmp(novo.placaDoVeiculo, locacao[i].placaDoVeiculo)==0){
-					condicional++;
-					emLocacao = i;
-				}
-			}
 
-			if(condicional == 3){//existe filial, veículo e cliente.
+			printf("condicional = %d\n",condicional );
+			if(condicional == 6 ){//existe filial, veículo e cliente.
 				Indice++;
 				locacao[Indice].codigoFilial  = novo.codigoFilial;
 				strcpy(locacao[Indice].placaDoVeiculo, novo.placaDoVeiculo);
@@ -173,15 +173,18 @@ int encerrar_Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * client
 }
 
 
-void listarVeiculos(Locacao * locacao, int Indice){
-	int i = Indice;
-	while(i>=0){
-		printf("\tCliente número:%d\n",Indice );
-		printf("\tPrimeiro Nome:%s\n",locacao[Indice].placaDoVeiculo);
-		printf("\tUltimo Nome:%d\n",locacao[Indice].codigo_cliente[0]);
-		printf("\tEndereço:%d\n",locacao[Indice].codigoFilial);
-		printf("\tSenha:%s\n",locacao[Indice].dataLocacao);
-		i--;
+void listarLocacoes(Locacao * locacao, int Indice){
+	int i =0 ;
+	printf("%d\n",i );
+	while(i<=Indice){
+		printf("\tLocacao número:%d\n",i);
+		printf("\tPlaca:%s\n",locacao[i].placaDoVeiculo);
+		printf("\tCódigo do Cliente:");
+		for (int a=0;a<4;a++)
+			printf("[%d]",locacao[i].codigo_cliente[a]);
+		printf("\n\tData de locação:%s\n\n",locacao[i].dataLocacao);
+		
+		i++;
 	}
 }
 #endif 

@@ -52,11 +52,8 @@ int CadastrodeNovosClientes(Clientes *cadastro, int Indice ) {
 			puts ("Digite o CPF  do clinte ");
 			fgets(cpfc,101,stdin);	
 			converte_char_to_int(cpfc,novo.CPF);
-			if(verificar_cpf(novo.CPF))
-				aux = 1;
-			else
-				aux = 0;
-
+			aux = verificar_cpf(novo.CPF);
+		
 			puts("=============================================================================");
 			puts("=============================================================================");
 
@@ -137,7 +134,7 @@ void listarClientes(Clientes *cadastro, int indice){
 	}
 }
 
-void converte_char_to_int(char *cpfc, int * cpf){
+void converte_char_to_int(char *cpfc, int * cpf, int ){
 	int i;
 	for(i=0;i<11;i++){
 		if(cpfc[i] >=48 && cpfc[i] <=57){
@@ -187,42 +184,49 @@ void converte_char_to_int(char *cpfc, int * cpf){
 	}
 }
 
+void verifica_digitador(){
+	puts("Digite o numero do cadastro ( Separado por espaço )");
+	scanf("%d %d %d %d",&cadastro[Indice].identificador[0],&cadastro[Indice].identificador[1],&cadastro[Indice].identificador[2],&cadastro[Indice].identificador[3]);
+}
+
+
 int verificar_cpf(int *cpf) { 	
-	int status, dv_informado,soma,posicao,digito[11],dv,i;
+	int status, dv_informado,soma=0,posicao,digito[11],dv,i;
 	for (i = 0; i <= 8; i++) { 
 		digito[i]=cpf[i];
+		soma += digito[i];
 	}
-
-	dv_informado = cpf[9]*10+cpf[10];
-	posicao = 10; 
-	soma = 0; 
-	for (i = 0; i <= 8; i++) { 
-		soma = soma + digito[i] * posicao; 
-		posicao = posicao - 1; 
-	} 
-	digito[9] = soma % 11; 
-	if (digito[9] < 2) { 
-		digito[9] = 0; 
-	}else{
-		digito[9] = 11 - digito[9]; 
+	if(soma != digito[0]*9){	
+		dv_informado = cpf[9]*10+cpf[10];
+		posicao = 10; 
+		soma = 0; 
+		for (i = 0; i <= 8; i++) { 
+			soma = soma + digito[i] * posicao; 
+			posicao = posicao - 1; 
+		} 
+		digito[9] = soma % 11; 
+		if (digito[9] < 2) { 
+			digito[9] = 0; 
+		}else{
+			digito[9] = 11 - digito[9]; 
+		}
+		posicao = 11; 
+		soma = 0; 
+		for (i = 0; i <= 9; i++) { 
+			soma = soma + digito[i] * posicao; posicao = posicao - 1; 
+		} 
+		digito[10] = soma % 11; 
+		if (digito[10] < 2) { 
+			digito[10] = 0; 
+		} else {
+			digito[10] = 11 - digito[10]; 
+		} 
+		dv = digito[9] * 10 + digito[10];
+		if (dv != dv_informado) {
+			status = 0;
+		}else 
+			status = 1; 
 	}
-	posicao = 11; 
-	soma = 0; 
-	for (i = 0; i <= 9; i++) { 
-		soma = soma + digito[i] * posicao; posicao = posicao - 1; 
-	} 
-	digito[10] = soma % 11; 
-	if (digito[10] < 2) { 
-		digito[10] = 0; 
-	} else {
-		digito[10] = 11 - digito[10]; 
-	} 
-	dv = digito[9] * 10 + digito[10];
-	if (dv != dv_informado) {
-		status = 0;
-	}else 
-		status = 1; 
-
 	return status; 
 }
 	

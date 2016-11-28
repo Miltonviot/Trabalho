@@ -54,10 +54,20 @@ int Cadastro_de_Novas_Filiais (Filiais * cadastro, int Indice){
 				cadastro[Indice].codigoFilial = novo.codigoFilial;
 				strcpy(cadastro[Indice].cidadeFilial , novo.cidadeFilial);
 			}
-
 		}
 		getchar();
 	}
 	return Indice;	
 }
+
+void listarFiliais(Filiais * filial, int Indice){
+	int i = Indice;
+	while(i>=0){
+		printf("\tFilial número:%d\n",i );
+		printf("\tCódigo:%d\n",filial[i].codigoFilial);
+		printf("\tCidade:%s\n",filial[i].cidadeFilial);
+		i--;
+	}
+}
+
 #endif 

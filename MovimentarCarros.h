@@ -77,6 +77,15 @@ int MovimentarCarros (Movimentar *cadastro, int Indice, Filiais * filiais, Veicu
 return Indice;
 }
 
+void listarMovimentos(Movimentar * cadastro, int Indice){
+	int i = Indice;
+	while(i>=0){
+		printf("\tMovimentação número:%d\n",i );
+		printf("\tPlaca:%s\n",cadastro[i].placaDoVeiculo);
+		printf("\tCódigo do filial:%d\n",cadastro[i].codigoFilial);
+		i--;
+	}
+}
 
 
 #endif 

@@ -57,13 +57,6 @@ int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
 			scanf("%lu",&novo.KM);
 			puts("=============================================================================");
 			puts("=============================================================================");	
-
-			printf("%s\n",novo.placaDoVeiculo );
-			printf("%s\n",novo.modeloDoCarro );
-			printf("%s\n",novo.anoDeFabricacao );
-			printf("%s\n",novo.estadoDoCarro );
-			printf("%.2lu\n",novo.KM );
-
 		
 			//percorrer o vetor em busca da placa
 			for(i = 0; i <= Indice; i++){
@@ -88,4 +81,20 @@ int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
 	}
 	return Indice;
 }
+<<<<<<< HEAD
+
+
+void listarVeiculos(Veiculos * veiculos, int Indice){
+	int i = Indice;
+	while(i>=0){
+		printf("\tVeiculo número:%d\n",i );
+		printf("\tModelo:%s\n",veiculos[i].modeloDoCarro);
+		printf("\tPlaca:%s\n",veiculos[i].placaDoVeiculo);
+		i--;
+	}
+}
+
 #endif 
+=======
+#endif 
+>>>>>>> e43dfcdb8a89ab245fad8e822f3737457430d03a
