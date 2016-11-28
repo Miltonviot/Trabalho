@@ -19,7 +19,7 @@ typedef struct Veiculos {
 #include "Cadastro_de_Novos_Veiculos.h"
 #include "CadastrodeNovosClientes.h"
 #include "Cadastro_de_Novas_Filiais.h"
-int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
+int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice, Filiais * filial, int Indice_filiais){
 	Veiculos novo;
 
 	int condicional=1, i=0;
@@ -48,53 +48,66 @@ int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
 			puts("=============================================================================");
 			puts("=============================================================================");				
 
-			puts ("Digite o estado do carro");
+			puts ("Digite O estado do carro");
 			fgets(novo.estadoDoCarro,101,stdin);
 			puts("=============================================================================");
 			puts("=============================================================================");	
 
-			puts ("Digite a quilometragem do carro (só Número)");
+			puts ("Digite A quilometragem do carro (só Número)");
 			scanf("%lu",&novo.KM);
 			puts("=============================================================================");
 			puts("=============================================================================");	
 		
+			puts ("Digite código da filial");
+			scanf("%d",&novo.codigoFilial);
+			puts("=============================================================================");
+			puts("=============================================================================");	
+		
+			condicional=0;
 			//percorrer o vetor em busca da placa
 			for(i = 0; i <= Indice; i++){
 				if(strcmp(novo.placaDoVeiculo,cadastro_veiculos[i].placaDoVeiculo)==0){
 					printf("placa já está cadastrada\n");
-					condicional = 0;
+					condicional=0;
 					break;
 				}
 			}
-			if(condicional != 0 ){
+
+			//percorrer o vetor em busca da placa
+			for(i = 0; i <= Indice_filiais; i++){
+				if(novo.codigoFilial == filial[i].codigoFilial){
+					printf("filial existe!!\n");
+					condicional++;
+					break;
+				}
+			}
+
+			if(condicional == 1 ){
 				Indice++;
 				strcpy(cadastro_veiculos[Indice].placaDoVeiculo , novo.placaDoVeiculo );
 				strcpy(cadastro_veiculos[Indice].modeloDoCarro , novo.modeloDoCarro );
 				strcpy(cadastro_veiculos[Indice].anoDeFabricacao , novo.anoDeFabricacao );
 				strcpy(cadastro_veiculos[Indice].estadoDoCarro , novo.estadoDoCarro );
 				cadastro_veiculos[Indice].KM = novo.KM;						
-				//cadastro_veiculos[Indice].codigoFilial = novo.codigoFilial;						
+				cadastro_veiculos[Indice].codigoFilial = novo.codigoFilial;						
 			}
-			condicional = 0;
+			condicional = 1;
 		}
 		getchar();
 	}
 	return Indice;
 }
-<<<<<<< HEAD
-
 
 void listarVeiculos(Veiculos * veiculos, int Indice){
-	int i = Indice;
-	while(i>=0){
+	int i = 0;
+	while(i<=Indice){
 		printf("\tVeiculo número:%d\n",i );
 		printf("\tModelo:%s\n",veiculos[i].modeloDoCarro);
 		printf("\tPlaca:%s\n",veiculos[i].placaDoVeiculo);
-		i--;
+		i++;
 	}
 }
 
+
+
 #endif 
-=======
-#endif 
->>>>>>> e43dfcdb8a89ab245fad8e822f3737457430d03a

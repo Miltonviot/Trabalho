@@ -17,7 +17,7 @@ typedef struct Filiais {
 #include "Cadastro_de_Novos_Veiculos.h"
 #include "CadastrodeNovosClientes.h"
 #include "Cadastro_de_Novas_Filiais.h"
-
+void listarFiliais(Filiais * filial, int Indice);
 int Cadastro_de_Novas_Filiais (Filiais * cadastro, int Indice){
 	int condicional=1,i;
 	Filiais novo;		
@@ -31,27 +31,21 @@ int Cadastro_de_Novas_Filiais (Filiais * cadastro, int Indice){
 		puts("=============================================================================");
 		getchar();
 		if (condicional>0){
-
-			puts("=============================================================================");
-			puts("=============================================================================");
-			puts ("Digite o código da filial");
-			scanf("%d",&novo.codigoFilial);
-			puts("=============================================================================");
-			puts("=============================================================================");
-			getchar();
 			puts ("Digite a cidade da filial");
 			fgets(novo.cidadeFilial,101,stdin);
 			puts("=============================================================================");
 			puts("=============================================================================");					
+
 			for(i = 0; i <= Indice; i++){
 				if(novo.codigoFilial == cadastro[i].codigoFilial){
 					condicional = 0;
 					break;
 				}
 			}
-			if(condicional != 0){
+
+			if(condicional != 0 || Indice>=0){
 				Indice++;
-				cadastro[Indice].codigoFilial = novo.codigoFilial;
+				cadastro[Indice].codigoFilial = Indice;
 				strcpy(cadastro[Indice].cidadeFilial , novo.cidadeFilial);
 			}
 		}
@@ -62,8 +56,9 @@ int Cadastro_de_Novas_Filiais (Filiais * cadastro, int Indice){
 
 void listarFiliais(Filiais * filial, int Indice){
 	int i = Indice;
+
 	while(i>=0){
-		printf("\tFilial número:%d\n",i );
+		printf("%d\n",i );
 		printf("\tCódigo:%d\n",filial[i].codigoFilial);
 		printf("\tCidade:%s\n",filial[i].cidadeFilial);
 		i--;

@@ -11,7 +11,7 @@ typedef struct Clientes {
 
 int CadastrodeNovosClientes(Clientes *cadastro, int Indice );
 void imprime_clientes(Clientes *cadastro, int indice);
-void converte_char_to_int(char *cpfc, int * cpf);
+void converte_char_to_int(char *cpfc, int * cpf, int v);
 int verificar_cpf(int *cpf) ;
 
 #include <stdio.h>
@@ -51,7 +51,7 @@ int CadastrodeNovosClientes(Clientes *cadastro, int Indice ) {
 			
 			puts ("Digite o CPF  do clinte ");
 			fgets(cpfc,101,stdin);	
-			converte_char_to_int(cpfc,novo.CPF);
+			converte_char_to_int(cpfc,novo.CPF, 11);
 			aux = verificar_cpf(novo.CPF);
 		
 			puts("=============================================================================");
@@ -77,8 +77,14 @@ int CadastrodeNovosClientes(Clientes *cadastro, int Indice ) {
 			puts("=============================================================================");
 			puts("=============================================================================");
 
-			puts("Digite o numero do cadastro ( Separado por espaço )");
-			scanf("%d %d %d %d",&novo.identificador[0],&novo.identificador[1],&novo.identificador[2],&novo.identificador[3]);
+			puts("Digite o numero do cadastro");
+			fgets(cpfc,101,stdin);	
+			converte_char_to_int(cpfc,novo.identificador,4);
+			novo.identificador[4] = novo.identificador[0]*9 + novo.identificador[1]*8 + novo.identificador[2]*7 + novo.identificador[3]*6;
+			novo.identificador[4]= novo.identificador[4]%11;
+
+			if(novo.identificador[4]==10)
+				novo.identificador[4]=0;
 			
 			puts("=============================================================================");
 			puts("=============================================================================");
@@ -106,7 +112,7 @@ int CadastrodeNovosClientes(Clientes *cadastro, int Indice ) {
 					
 					for(i=0;i<11;i++)
 						cadastro[Indice].CPF[i]=novo.CPF[i];
-					for(i=0;i<4;i++)
+					for(i=0;i<5;i++)
 						cadastro[Indice].identificador[i]=novo.identificador[i];
 				}
 			}
@@ -127,16 +133,16 @@ void listarClientes(Clientes *cadastro, int indice){
 			for(i=0;i<11;i++){
 				printf("%u",cadastro[indice].CPF[i]);
 			}printf("\n");
-		printf("\n\tNumero da Conta:%d %d %d %d \n", cadastro[indice].identificador[0],cadastro[indice].identificador[1],cadastro[indice].identificador[2],cadastro[indice].identificador[3]);
+		printf("\n\tNumero da Conta:%d %d %d %d - %d\n", cadastro[indice].identificador[0],cadastro[indice].identificador[1],cadastro[indice].identificador[2],cadastro[indice].identificador[3],cadastro[indice].identificador[4]);
 		printf("=============================================================================\n");
 		printf("=============================================================================\n");
 		indice--;		
 	}
 }
 
-void converte_char_to_int(char *cpfc, int * cpf, int ){
+void converte_char_to_int(char *cpfc, int * cpf, int v){
 	int i;
-	for(i=0;i<11;i++){
+	for(i=0;i<v;i++){		
 		if(cpfc[i] >=48 && cpfc[i] <=57){
 			switch(cpfc[i]){
 				case('0'):{
@@ -182,11 +188,6 @@ void converte_char_to_int(char *cpfc, int * cpf, int ){
 			}
 		}
 	}
-}
-
-void verifica_digitador(){
-	puts("Digite o numero do cadastro ( Separado por espaço )");
-	scanf("%d %d %d %d",&cadastro[Indice].identificador[0],&cadastro[Indice].identificador[1],&cadastro[Indice].identificador[2],&cadastro[Indice].identificador[3]);
 }
 
 

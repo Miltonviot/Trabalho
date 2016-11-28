@@ -32,14 +32,14 @@ int main (){
 			puts("=============================================================================");
 			puts("=Digite {0} para sair                                                       =");
 			puts("=Digite {1} para Cadastro de Novos Clientes                                 =");
-			puts("=Digite {2} para Cadastro de Novos Veiculos                                 =");
-			puts("=Digite {3} para Cadastro de Novas Filiais                                  =");
+			puts("=Digite {2} para Cadastro de Novos Filiais                                  =");
+			puts("=Digite {3} para Cadastro de Novas Veiculos                                 =");
 			puts("=Digite {4} para Realizar uma locação                                       =");
 			puts("=Digite {5} para Encerrar uma locação                                       =");
 			puts("=Digite {6} para Realizar uma transferencia entre Filiais                   =");
-			puts("=Digite {7} para listar Clientes 								=");
-			puts("=Digite {8} para listar Filiais 			                      =");
-			puts("=Digite {9} para listar Veiculos 			                      =");
+			puts("=Digite {7} para listar Clientes                                            =");
+			puts("=Digite {8} para listar Filiais                                             =");
+			puts("=Digite {9} para listar Veiculos                                            =");
 			puts("=============================================================================");
 			puts("=============================================================================");
 
@@ -52,13 +52,12 @@ int main (){
 						
 					break;
 
-					case 2:
-						Indice_veiculos = Cadastro_de_Novos_Veiculos(cadastro_veiculos, Indice_veiculos);
-						
+					case 3:
+						Indice_veiculos = Cadastro_de_Novos_Veiculos(cadastro_veiculos, Indice_veiculos, cadastro_filiais, Indice_filiais);
 
 					break;
 
-					case 3:
+					case 2:
 						Indice_filiais = Cadastro_de_Novas_Filiais(cadastro_filiais, Indice_filiais);
 
 					break;
@@ -69,7 +68,7 @@ int main (){
 					break;
 
 					case 5:
-						Indice_locacao = encerrar_Locacao_de_Carros(cadastro_locacao, Indice_locacao, cadastro_clientes, cadastro_filiais, cadastro_veiculos);
+						Indice_locacao = encerrar_Locacao_de_Carros(cadastro_locacao, Indice_locacao, cadastro_clientes, cadastro_filiais, cadastro_veiculos,Indice_veiculos);
 						listarLocacoes(cadastro_locacao, Indice_locacao);
 					break;
 
