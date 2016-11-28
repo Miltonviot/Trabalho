@@ -21,7 +21,7 @@ int Locacao_de_Carros();
 int Locacao_de_Carros (Locacao * locacao, int Indice, Clientes * clientes, Filiais * filiais, Veiculos * veiculos){
 
 	Locacao novo;	
-	int condicional=1, i, emLocacao;
+	int condicional=1, i,x, emLocacao;
 		
 	while (condicional>0){
 		puts("=============================================================================");
