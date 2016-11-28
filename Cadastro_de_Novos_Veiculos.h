@@ -68,7 +68,7 @@ int Cadastro_de_Novos_Veiculos (Veiculos * cadastro_veiculos, int Indice){
 			//percorrer o vetor em busca da placa
 			for(i = 0; i <= Indice; i++){
 				if(strcmp(novo.placaDoVeiculo,cadastro_veiculos[i].placaDoVeiculo)==0){
-					printf("placa já está cadastrada");
+					printf("placa já está cadastrada\n");
 					condicional = 0;
 					break;
 				}
