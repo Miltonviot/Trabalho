@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+//#include <ctype.h>
+
+typedef struct _cliente{
+	char nome[30], cpf[16], telefone[17];
+	
+}Cliente;
+
+void cadastrar_cliente(Cliente *cadastro_cliente, int indice_cliente){
+  	   Cliente novo;
+  	   puts("Digite o nome do cliente");
+  	   getchar();
+  	   fgets(novo.nome,30,stdin);
+       puts("Digite o cpf do cliiente");
+  	   fgets(novo.cpf,17,stdin);
+  	   
+  	   puts("Digite o telefone do cliente");
+  	   fgets(novo.telefone,18,stdin);
+  	   
+
+  	   strcpy(cadastro_cliente[indice_cliente].nome, novo.nome);
+  	   strcpy(cadastro_cliente[indice_cliente].cpf, novo.cpf);
+  	   strcpy(cadastro_cliente[indice_cliente].telefone, novo.telefone);
+  	   
+  	   
+ }
+void mostrar_cliente(Cliente *cadastro_cliente, int indice_cliente){
+	
+	while(indice_cliente>=0){
+		puts("===================================================================");
+		printf("=\t Nome do Cliente :%s                                        ",cadastro_cliente[indice_cliente].nome );
+		printf("=\t CPF do Cliente :%s                                         ",cadastro_cliente[indice_cliente].cpf );
+		printf("=\t Telefone do Cliente :%s                                    ",cadastro_cliente[indice_cliente].telefone );
+		puts("===================================================================");
+		indice_cliente --;
+	}
+}
+// protótipo das funções
+
+void cadastrar_cliente(Cliente *cadastro_cliente, int indice_cliente);
+
+void mostrar_cliente(Cliente *cadastro_cliente, int indice_cliente);
+
+int main(void){
+
+	int opcao=90;
+	int indice_cliente = -1;
+	Cliente cadastro_cliente[1000];
+	while(opcao !=0){
+
+		puts("Digite op");
+		scanf("%d",&opcao);
+
+		switch (opcao){
+			case 1:
+				puts("aqui");
+				indice_cliente++;
+				cadastrar_cliente(cadastro_cliente,indice_cliente);
+			break;
+			case 2:
+				puts("aqui mostra");
+				
+				mostrar_cliente(cadastro_cliente,indice_cliente);
+			break;
+		}	
+	}
+
+	return 0;
+}
